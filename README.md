@@ -9,3 +9,11 @@
 | Reach-v0           | Dexterity  |                                                                    | :white_check_mark: |            |
 | FreeReach-v0       | Dexterity  |                                                                    | :white_check_mark: |            |
 | ManipulateBlock-v0 | Dexterity  |                                                                    | :white_check_mark: |            |
+
+## Boddy Parts
+
+- [x] Hand
+- [ ] Eye
+- [ ] Neck
+- [ ] Head (Eye + Neck)
+- [ ] Arm
