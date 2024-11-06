@@ -10,6 +10,12 @@
 | FreeReach-v0       | Dexterity  |                                                                    | :white_check_mark: |            |
 | ManipulateBlock-v0 | Dexterity  |                                                                    | :white_check_mark: |            |
 
+## Planned Tasks
+
+- Spatial Navigation
+- Reaching
+- 1-2-3-Go
+
 ## Boddy Parts
 
 - [x] Hand
@@ -17,3 +23,6 @@
 - [ ] Neck
 - [ ] Head (Eye + Neck)
 - [ ] Arm
+
+## Benchmarking Results
+![angorapy.org](https://img.shields.io/badge/AngoraPy-v0.11.0-blue)
