@@ -12,10 +12,17 @@
 
 ## Planned Tasks
 
-
 - Spatial Navigation
 - Reaching
 - 1-2-3-Go
+
+| Task               | Type       | Description                                                        | Embodied           | Train time |
+|--------------------|------------|--------------------------------------------------------------------|--------------------|------------|
+| Tapping-v0   | Dexterity  | Tap a specific finger on a surface.                                | :white_check_mark: |            |
+| SequentialTapping-v0   | Dexterity  | Tap fingers on a surface in a specific sequence.         | :white_check_mark: |            |
+| RhythmicTapping-v0   | Dexterity  | Tap a specific finger in rhythm with an auditory cue.      | :white_check_mark: |            |
+| ComplexRhythmicTapping-v0   | Dexterity  | Tap fingers in rhythm with an auditory cue, where different tones refer to different fingers. | :white_check_mark: |            |
+
 
 ## Body Parts
 
