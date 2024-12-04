@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:rt="root">
+
+    <xs:element name="Task">
+        
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" />
+
+            <xs:all>
+
+                <xs:element name="body" maxOccurs="1">
+
+
+
+                </xs:element>
+
+                <xs:element name="environment" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:all>
+
+                            <xs:element name="externalObject">
+                                <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string" />
+                                </xs:complexType>
+                            </xs:element>
+
+                        </xs:all>
+                    </xs:complexType>
+
+                </xs:element>
+
+                <xs:element name="objectives" maxOccurs="1">
+
+                </xs:element>
+
+            </xs:all>
+
+        </xs:complexType>
+        
+    </xs:element>
+
+</xs:schema>
