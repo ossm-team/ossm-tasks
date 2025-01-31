@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <!--  TYPES -->
+    <xs:complexType name="entity">
+        <xs:attribute name="name" type="xs:string"/>
+        <xs:attribute name="model_path" type="xs:string"/>
+    </xs:complexType>
+
+    <!--  DEFINITION -->
+    <xs:element name="task">
+
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="taskName" type="xs:string"/>
+
+                <xs:element name="config" maxOccurs="1">
+
+                    <xs:complexType>
+                        <xs:attribute name="timestep_ms" type="xs:integer" />
+                    </xs:complexType>
+
+                </xs:element>
+
+                <xs:element name="body" maxOccurs="1">
+
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element type="entity" name="bodyPart" minOccurs="1" maxOccurs="unbounded"/>
+                        </xs:all>
+                    </xs:complexType>
+
+                </xs:element>
+
+                <xs:element name="environment" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:all>
+
+                            <xs:element type="entity" name="externalObject" minOccurs="0"/>
+
+                        </xs:all>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="objectives" maxOccurs="1">
+
+                    <xs:complexType>
+                        <xs:all>
+
+                            <xs:element name="constituent">
+                                <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string"/>
+                                    <xs:attribute name="identifier" type="xs:string"/>
+                                    <xs:attribute name="weight" type="xs:float"/>
+                                    <xs:attribute name="exponent" type="xs:float"/>
+                                </xs:complexType>
+                            </xs:element>
+
+                        </xs:all>
+                    </xs:complexType>
+
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+
+    </xs:element>
+</xs:schema>

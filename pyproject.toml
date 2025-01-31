@@ -30,7 +30,10 @@ classifiers = [
 ]
 dependencies = [
     "numpy",
-    "gymnasium >= 1.0.0"
+    "gymnasium >= 1.0.0",
+    "dm_control == 1.0.26 ",
+
+    "xmlschema"
 ]
 
 [project.urls]
