@@ -1,0 +1,5 @@
+<mujoco model="empty">
+  <worldbody>
+    <!-- No bodies or geoms defined -->
+  </worldbody>
+</mujoco>

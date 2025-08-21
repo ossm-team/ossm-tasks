@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<task xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../STEF.xsd">
+
+  <!-- Metadata -->
+  <metadata>
+    <author>Tonio Weidler</author>
+    <version>1.0</version>
+    <date>2025-07-12</date>
+    <license>GPL-3.0</license>
+    <keywords>eye tracking</keywords>
+    <keywords>fixation</keywords>
+    <keywords>sensorimotor</keywords>
+    <keywords>task</keywords>
+  </metadata>
+
+  <!-- Task name and description -->
+  <taskname>Visual Tracking Task</taskname>
+  <description>
+    A continuous visual tracking task where the agent controls a fixation point
+    that must follow a single moving object on a canvas in real time.
+    The goal is to minimize tracking error throughout the task.
+  </description>
+
+  <config timestep_ms="10">
+    <initialstate>
+      <variable name="fixation_x" value="0.0"/>
+      <variable name="fixation_y" value="0.0"/>
+    </initialstate>
+  </config>
+
+  <body>
+    <bodypart name="fixation_point" model_path="models/bodies/surrogates/fixation_point.xml"/>
+    <bodypart name="dummy" model_path="models/bodies/empty.xml"/>
+  </body>
+
+  <environment>
+    <scene background_color="#FFFFFF"/>
+    <externalobject name="moving_target" model_path="models/externals/moving_sphere.xml"/>
+  </environment>
+
+  <objective maximize="true" name="tracking_accuracy">
+    <constituent function="abs">
+      <constituent variable="moving_target.x" weight="1.0" exponent="1.0"/>
+      <constituent variable="fixation_point.x" weight="-1.0" exponent="1.0"/>
+    </constituent>
+
+    <constituent function="abs">
+      <constituent variable="moving_target.y" weight="1.0" exponent="1.0"/>
+      <constituent variable="fixation_point.y" weight="-1.0" exponent="1.0"/>
+    </constituent>
+  </objective>
+
+  <taskevent type="movement.line" actor="moving_target">
+    <param name="endpoint" value="0 1 0"/>
+    <param name="duration_ms" value="1000"/>
+    <param name="loop" value="true"/>
+  </taskevent>
+
+</task>

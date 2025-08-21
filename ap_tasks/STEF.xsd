@@ -1,67 +1,177 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 
-    <!--  TYPES -->
+    <!-- TYPES -->
     <xs:complexType name="entity">
-        <xs:attribute name="name" type="xs:string"/>
-        <xs:attribute name="model_path" type="xs:string"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="model_path" type="xs:string" use="optional"/>
     </xs:complexType>
 
-    <!--  DEFINITION -->
+    <xs:element name="constituent" type="factor"/>
+
+    <xs:complexType name="factor">
+        <xs:sequence>
+            <xs:element ref="constituent" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+
+        <xs:attribute name="name" type="xs:string" use="optional"/>
+        <xs:attribute name="function" type="xs:string" use="optional"/>
+        <xs:attribute name="variable" type="xs:string" use="optional"/>
+        <xs:attribute name="weight" type="xs:float" use="optional"/>
+        <xs:attribute name="exponent" type="xs:float" use="optional"/>
+    </xs:complexType>
+
+    <!-- MAIN TASK DEFINITION -->
     <xs:element name="task">
+        <xs:annotation>
+            <xs:documentation>
+                This schema defines the structure of a task in the STEF (Simulation Task Environment Framework).
+                It includes metadata, task configuration, body parts, environment objects, and objectives.
+            </xs:documentation>
+        </xs:annotation>
 
         <xs:complexType>
-            <xs:all>
-                <xs:element name="taskName" type="xs:string"/>
+            <xs:sequence>
 
-                <xs:element name="config" maxOccurs="1">
-
+                <!-- METADATA -->
+                <xs:element name="metadata" minOccurs="1" maxOccurs="1">
                     <xs:complexType>
-                        <xs:attribute name="timestep_ms" type="xs:integer" />
-                    </xs:complexType>
-
-                </xs:element>
-
-                <xs:element name="body" maxOccurs="1">
-
-                    <xs:complexType>
-                        <xs:all>
-                            <xs:element type="entity" name="bodyPart" minOccurs="1" maxOccurs="unbounded"/>
-                        </xs:all>
-                    </xs:complexType>
-
-                </xs:element>
-
-                <xs:element name="environment" maxOccurs="1">
-                    <xs:complexType>
-                        <xs:all>
-
-                            <xs:element type="entity" name="externalObject" minOccurs="0"/>
-
-                        </xs:all>
+                        <xs:sequence>
+                            <xs:element name="author" type="xs:string"/>
+                            <xs:element name="version" type="xs:string"/>
+                            <xs:element name="date" type="xs:date"/>
+                            <xs:element name="license" type="xs:string"/>
+                            <xs:element name="keywords" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
                     </xs:complexType>
                 </xs:element>
 
-                <xs:element name="objectives" maxOccurs="1">
+                <!-- TASK NAME -->
+                <xs:element name="taskname" minOccurs="1" maxOccurs="1" type="xs:string"/>
 
+                <!-- OPTIONAL DESCRIPTION -->
+                <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+
+                <!-- CONFIG -->
+                <xs:element name="config" minOccurs="1" maxOccurs="1">
                     <xs:complexType>
-                        <xs:all>
+                        <xs:sequence>
 
-                            <xs:element name="constituent">
+                            <!-- Initial State -->
+                            <xs:element name="initialstate" minOccurs="0">
                                 <xs:complexType>
-                                    <xs:attribute name="name" type="xs:string"/>
-                                    <xs:attribute name="identifier" type="xs:string"/>
-                                    <xs:attribute name="weight" type="xs:float"/>
-                                    <xs:attribute name="exponent" type="xs:float"/>
+                                    <xs:sequence>
+                                        <xs:element name="variable" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:attribute name="name" type="xs:string" use="required"/>
+                                                <xs:attribute name="value" type="xs:string" use="required"/>
+                                                <xs:attribute name="link" type="xs:string" use="optional">
+                                                    <xs:annotation>
+                                                        <xs:documentation>
+                                                            Optional link to a variable in the simulation environment
+                                                            that this state variable refers to.
+                                                        </xs:documentation>
+                                                    </xs:annotation>
+                                                </xs:attribute>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
                                 </xs:complexType>
                             </xs:element>
 
-                        </xs:all>
-                    </xs:complexType>
+                        </xs:sequence>
 
+                        <xs:attribute name="timestep_ms" type="xs:integer" use="required"/>
+                    </xs:complexType>
                 </xs:element>
-            </xs:all>
+
+                <!-- BODY -->
+                <xs:element name="body" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Defines the body parts of the task, which define the physical entities that can interact
+                            with the environment and are controlled by the cognitive agent.
+                        </xs:documentation>
+                    </xs:annotation>
+
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="bodypart" type="entity" minOccurs="1" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <!-- ENVIRONMENT -->
+                <xs:element name="environment" minOccurs="1" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Defines the external objects in the task environment that can be interacted with or drive
+                            the sensory stimulation of the agent. The cognitive agent has no explicit control over these
+                            objects, but can implicitly influence them through its bodily action.
+                        </xs:documentation>
+                    </xs:annotation>
+
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="scene" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:attribute name="background_color" type="xs:string"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="externalobject" type="entity" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <!-- OBJECTIVES -->
+                <xs:element name="objective" minOccurs="1" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Defines an objective of the task, which are used to evaluate the performance of the agent.
+                            Each objective can consist of multiple constituents that contribute to the overall evaluation.
+                            Multiple objectives can be defined to capture different aspects of the agent's performance.
+                            They can then be individually tracked.
+                        </xs:documentation>
+                    </xs:annotation>
+
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="constituent" type="factor" minOccurs="1" maxOccurs="unbounded"/>
+                        </xs:sequence>
+
+                        <xs:attribute name="maximize" type="xs:boolean" use="optional" default="true"/>
+                        <xs:attribute name="name" type="xs:string" use="optional"/>
+                    </xs:complexType>
+                </xs:element>
+
+                <!-- TASK EVENTS -->
+                <xs:element name="taskevent" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Defines events that occur during the task, such as movements of external objects or changes in the
+                            environment. These events can be used to simulate dynamic interactions within the task.
+                        </xs:documentation>
+                    </xs:annotation>
+
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="param" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="name" type="xs:string" use="required"/>
+                                    <xs:attribute name="value" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+
+                        <xs:attribute name="type" type="xs:string" use="required"/>
+                        <xs:attribute name="actor" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+
+            </xs:sequence>
         </xs:complexType>
 
+
     </xs:element>
+
 </xs:schema>
