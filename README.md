@@ -1,45 +1,67 @@
+# OSSM Tasks
 
-# Sensorimotor Task Catalogue
+`ossm-tasks` implements the **Sensorimotor Task and Environment Format (STEF)** and provides a catalogue of ecologically valid tasks for goal-driven sensorimotor neuroscience.  
+It is one of the core packages of the [OSSM ecosystem](https://github.com/ossm-team), supported by the [NWO Open Science Fund](https://www.nwo.nl/en/researchprogrammes/open-science/open-science-fund).
 
-### Planned Features
+---
 
-* [ ]  **Sensorimotor Task and Environment Format** (STEF) model description format for task constituents
-* [ ]  Growing collection of predefined environments in STEF
-* [ ]  Growing collection of predefined tasks
-* [ ]
+## Vision
 
-## Tasks
+This package is part of the effort to build an **open, community-driven ecosystem** for computational sensorimotor neuroscience.  
+By standardizing task descriptions, OSSM enables tasks to be **shared, reproduced, and reused** across different labs and embodiments.  
+The long-term goal is a growing catalogue of tasks that bridge sensory, motor, and cognitive capacities.
 
-| Task               | Type       | Description                                                        | Embodied           | Train time |
-|--------------------|------------|--------------------------------------------------------------------|--------------------|------------|
-| LocateSprite-v0    | Oculomotor | Locate and fixate a sprite on an empty canvas.                     | :x:                |            |
-| LocateTopSprite-v0 | Oculomotor | Locate and fixate the topmost of three sprites on an empty canvas. | :x:                |            |
-| FingerOpp-v0       | Dexterity  |                                                                    | :white_check_mark: |            |
-| FreeFingerOpp-v0   | Dexterity  |                                                                    | :white_check_mark: |            |
-| ManipulateBlock-v0 | Dexterity  |                                                                    | :white_check_mark: |            |
+---
 
-## Planned Tasks
+## Features
 
-- Spatial Navigation
-- Reaching
-- 1-2-3-Go
+- **Schema-driven Standards**: Task definitions are validated against [`STEF.xsd`](./STEF.xsd).  
+- **Ecologically valid**: Supports embodied, enactive tasks.
 
-| Task               | Type       | Description                                                        | Embodied           | Train time |
-|--------------------|------------|--------------------------------------------------------------------|--------------------|------------|
-| Tapping-v0   | Dexterity  | Tap a specific finger on a surface.                                | :white_check_mark: |            |
-| SequentialTapping-v0   | Dexterity  | Tap fingers on a surface in a specific sequence.         | :white_check_mark: |            |
-| RhythmicTapping-v0   | Dexterity  | Tap a specific finger in rhythm with an auditory cue.      | :white_check_mark: |            |
-| ComplexRhythmicTapping-v0   | Dexterity  | Tap fingers in rhythm with an auditory cue, where different tones refer to different fingers. | :white_check_mark: |            |
+#### Features under Development
 
+- **Python API**: Programmatic interfaces to create tasks.
+- **Python STEF Loader**: Load STEF tasks into executable Gymnasium environments.
 
-## Body Parts
+#### Planned features
 
-- [x] Hand
-- [ ] Eye
-- [ ] Neck
-- [ ] Head (Eye + Neck)
-- [ ] Arm
+- **Integration**: Interfaces to existing embodied tasks.
+- **Catalogue**: A curated collection of reusable, well-documented tasks.  
 
-## Benchmarking Results
-![angorapy.org](https://img.shields.io/badge/AngoraPy-v0.11.0-blue)
+---
 
+## Install
+
+Requires **Python 3.11+**.
+
+```bash
+pip install -e .
+```
+
+---
+
+## Quickstart
+
+Explore the [suite](./ossm-tasks/suite/) for ready-to-use task definitions.
+
+Detailed documentation is under development.
+
+---
+
+## Related Packages
+
+- [`ossm-base`](https://github.com/ossm-team/ossm-base) – shared types and utilities  
+- [`ossm-models`](https://github.com/ossm-team/ossm-models) – model catalogue & SMS standard  
+- [`ossm-analysis`](https://github.com/ossm-team/ossm-analysis) – analysis methods & benchmarks  
+
+---
+
+## Contribution
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md).  
+
+---
+
+## License
+
+GPL-3.0. See [LICENSE](./LICENSE).
