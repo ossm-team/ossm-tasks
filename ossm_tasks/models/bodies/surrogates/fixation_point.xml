@@ -1,0 +1,17 @@
+<mujoco model="fixation_point">
+  <worldbody>
+    <body name="fixation_point" pos="0 0 0">
+      <joint name="fix_x" type="slide" axis="1 0 0" range="-1 1" damping="1"/>
+      <joint name="fix_y" type="slide" axis="0 1 0" range="-1 1" damping="1"/>
+      <joint name="fix_z" type="slide" axis="0 0 1" range="-1 1" damping="1"/>
+
+      <geom type="box" size="0.005 0.005 0.005" rgba="1 0 0 1"/>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="u_fix_x" joint="fix_x" kp="20" ctrllimited="true" ctrlrange="-1 1"/>
+    <position name="u_fix_y" joint="fix_y" kp="20" ctrllimited="true" ctrlrange="-1 1"/>
+    <position name="u_fix_z" joint="fix_z" kp="20" ctrllimited="true" ctrlrange="-1 1"/>
+  </actuator>
+</mujoco>

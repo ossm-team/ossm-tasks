@@ -2,7 +2,7 @@ import abc
 
 import numpy as np
 
-from ap_tasks.core.event import TaskEvent
+from ossm_tasks.core.event import TaskEvent
 
 
 class Movement(TaskEvent, abc.ABC):
@@ -35,8 +35,8 @@ class LineMovement(Movement):
         # Calculate the new position
         new_position = self.startpoint + fraction * (self.endpoint - self.startpoint)
 
-        print(f"Updating position from {self.startpoint} via  {self.data.qpos[self.actor_qpos_idx:self.actor_qpos_idx + 3]} "
-              f"to {new_position} at time step {time_step}")
+        # print(f"Updating position from {self.startpoint} via  {self.data.qpos[self.actor_qpos_idx:self.actor_qpos_idx + 3]} "
+        #       f"to {new_position} at time step {time_step}")
 
         # Update the actor's position
         self.data.qpos[self.actor_qpos_idx:self.actor_qpos_idx + 7] = np.concat([new_position, [1, 0, 0, 0]])

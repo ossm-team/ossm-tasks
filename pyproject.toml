@@ -1,42 +1,32 @@
 [build-system]
-requires = ["setuptools >=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
 
 [project]
-name = "ap_tasks"
+name = "ossm_tasks"
 authors = [
-    {name = "AngoraPy Team"},
-    {name = "Tonio Weidler", email = "research@tonioweidler.de"},
+  { name = "Tonio Weidler", email = "research@tonioweidler.de" },
+  { name = "Mario Senden", email = "mario.senden@maastrichtuniversity.nl" }
 ]
-description = "Enactive sensorimotor task API and suite."
+description = "Enactive sensorimotor task API, suite, and standards (STEF)."
 readme = "README.md"
-requires-python = ">=3.10"
-license = {text = "Apache-2.0"}
-dynamic = ["version"]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3 :: Only",
+requires-python = ">=3.11"
+license = {text = "GPL-3.0"}
+keywords = ["computational neuroscience", "sensorimotor", "standards", "open science"]
+version = "0.1.0"
 
-    "Operating System :: Unix",
-    "Operating System :: MacOS",
-    "Intended Audience :: Science/Research",
-    "Topic :: Neuroscience",
-    "Topic :: Scientific/Engineering",
-    "Topic :: Scientific/Engineering :: Computational Neuroscience",
-]
 dependencies = [
     "numpy",
     "gymnasium >= 1.0.0",
     "dm_control == 1.0.26 ",
+    'mujoco',
 
     "xmlschema"
 ]
 
 [project.urls]
-Homepage = "http://angorapy.org"
-Repository = "https://github.com/angorapy/ap-tasks"
+Homepage = "https://github.com/ossm-team/ossm-tasks"
+Repository = "https://github.com/ossm-team/ossm-tasks"
+Issues = "https://github.com/ossm-team/ossm-tasks/issues"
 
+[project.entry-points."ossm_lab.suite"]

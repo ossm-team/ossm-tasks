@@ -21,6 +21,34 @@
         <xs:attribute name="exponent" type="xs:float" use="optional"/>
     </xs:complexType>
 
+    <!-- Direction enum -->
+    <xs:simpleType name="DirectionType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="above"/>
+            <xs:enumeration value="below"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Shared condition attributes for threshold-based checks -->
+    <xs:complexType name="ThresholdConditionType">
+        <xs:attribute name="target" type="xs:string" use="required"/>
+        <xs:attribute name="threshold" type="xs:double" use="required"/>
+        <xs:attribute name="direction" type="DirectionType" use="required"/>
+        <xs:attribute name="duration_ms" type="xs:integer" use="optional"/>
+    </xs:complexType>
+
+    <!-- Time condition -->
+    <xs:element name="time">
+        <xs:complexType>
+            <xs:attribute name="value_ms" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Threshold-based conditions reuse the shared type -->
+    <xs:element name="objective" type="ThresholdConditionType"/>
+    <xs:element name="variable" type="ThresholdConditionType"/>
+
+
     <!-- MAIN TASK DEFINITION -->
     <xs:element name="task">
         <xs:annotation>
@@ -101,6 +129,27 @@
                     </xs:complexType>
                 </xs:element>
 
+                <!-- ACTION -->
+                <xs:element name="action" minOccurs="1" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="min" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:attribute name="value" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="max" minOccurs="1" maxOccurs="1">
+                                <xs:complexType>
+                                    <xs:attribute name="value" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="target_body" type="xs:string" use="required"/>
+                        <xs:attribute name="shape" type="xs:integer" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+
+
                 <!-- ENVIRONMENT -->
                 <xs:element name="environment" minOccurs="1" maxOccurs="1">
                     <xs:annotation>
@@ -165,6 +214,19 @@
 
                         <xs:attribute name="type" type="xs:string" use="required"/>
                         <xs:attribute name="actor" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+
+                <!-- Termination wrapper -->
+                <xs:element name="termination" minOccurs="1" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:choice minOccurs="1" maxOccurs="unbounded">
+                                <xs:element ref="time"/>
+                                <xs:element ref="objective"/>
+                                <xs:element ref="variable"/>
+                            </xs:choice>
+                        </xs:sequence>
                     </xs:complexType>
                 </xs:element>
 
